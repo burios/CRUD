@@ -7,6 +7,8 @@ const userRoutes = require('./routes/userRoutes');
 const produtoRoutes = require('./routes/produtoRoutes');
 const categoriaRoutes = require('./routes/categoriaRoutes');
 const vendasRoutes = require('./routes/vendasRoutes');
+const session = require('express-session');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +16,13 @@ const PORT = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(expressLayouts);
+
+app.use(session({
+  secret: '123',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
